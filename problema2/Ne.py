@@ -1,3 +1,3 @@
 class magamid:
     def __init__(self):
-        print("eu's megamind")
+        print("eu's megamind  2222")
