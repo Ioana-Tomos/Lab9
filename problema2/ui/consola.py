@@ -22,9 +22,12 @@ class Consola:
         while True:
             c = input( "Alegeti o comanda: pentru a executa functionalitati pe clinti tasteaza c, iar pentru a executa functionalitati pe filme tasteaza f: ")
             if c == "exit":
-                print("multumesc ")
+                print("multumesc! <3 ")
                 break
-            comenzi[c]()
+            try:
+                comenzi[c]()
+            except KeyError:
+                print("Comanda nu a fost introdusa corect ")
 
     def executa_comenzi_client(self):
         comenzi = {"adaugare": self.__adaugare_client, "afisare": self.__afisare_client, "sterge": self.__sterge_client,
@@ -35,7 +38,10 @@ class Consola:
             cmd, args = self.__citeste_comanda_c()
             if cmd == "exit":
                 break
-            comenzi[cmd](*args)
+            try:
+                comenzi[cmd](*args)
+            except KeyError:
+                print("Comanda nu a fost introdusa corect ")
 
     def __citeste_comanda_c(self):
         linie = input()
@@ -98,7 +104,11 @@ class Consola:
             cmd, args = self.__citeste_comanda_f()
             if cmd == "exit":
                 break
-            comenzi[cmd](*args)
+            try:
+                comenzi[cmd](*args)
+            except KeyError:
+                print("Comanda nu a fost introdusa corect ")
+
 
     def __citeste_comanda_f(self):
         linie = input()
