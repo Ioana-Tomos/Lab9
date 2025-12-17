@@ -1,4 +1,5 @@
-from problema2.domain.film import Film
+from domain.entities import Film
+
 
 class DuplicateIdError(Exception):
     pass

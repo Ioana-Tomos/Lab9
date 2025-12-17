@@ -1,4 +1,5 @@
 
+from domain.validators import IdNotFoundCError, DuplicateIdError
 
 
 class ClientRepository:
@@ -9,15 +10,15 @@ class ClientRepository:
         return list(self.__all_clients.values())
 
     def save(self, client):
-        if self.find_by_id(client.get_id()) is not None:
+        if self.find_by_id(client.id) is not None:
             raise DuplicateIdError("duplicat")
-        self.__all_clients[client.get_id()] = client
+        self.__all_clients[client.id] = client
 
     def update(self, client):
-        if self.find_by_id(client.get_id()) is None:
+        if self.find_by_id(client.id) is None:
             raise IdNotFoundCError("Acest id nu exista in lista")
         else:
-             self.__all_clients[client.get_id()] = client
+             self.__all_clients[client.id()] = client
 
     def delete_by_id(self, id):
         if self.find_by_id(id) is None:
@@ -26,7 +27,7 @@ class ClientRepository:
 
     def find_by_id(self, id_client):
         for i in self.__all_clients.values():
-            if i.get_id() ==id_client:
+            if i.id ==id_client:
                 return id_client
         return None
 

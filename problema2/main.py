@@ -1,10 +1,10 @@
 import os
 
-from problema2.repository.client_file_repository import ClientFileRepository
-from problema2.repository.film_file_repository import FilmFileRepository
-from problema2.service.client_service import ClientService
-from problema2.service.film_service import FilmService
-from problema2.ui.consola import Consola
+from repository.client_file_repository import ClientFileRepository
+from repository.film_file_repository import FilmFileRepository
+from service.client_service import ClientService
+from service.film_service import FilmService
+from ui.consola import Consola
 
 
 # print("Hello lume")
@@ -13,8 +13,8 @@ from problema2.ui.consola import Consola
 def main():
 
     print(os.getcwd())
-    client_repository = ClientFileRepository('../data/clienti')
-    film_repository = FilmFileRepository("../data/filme")
+    client_repository = ClientFileRepository('data/clienti')
+    film_repository = FilmFileRepository('data/filme')
     client_service = ClientService(client_repository)
     film_service = FilmService(film_repository)
     sc = Consola(client_service, film_service)

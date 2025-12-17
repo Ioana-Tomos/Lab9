@@ -1,6 +1,7 @@
 import unittest
 
-from problema2.domain.film import Film
+from domain.entities import Film
+
 
 class ClientTestCase(unittest.TestCase):
 

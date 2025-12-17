@@ -1,3 +1,4 @@
+from domain.entities import Film
 from problema2.repository.film_repository import FilmRepository
 
 
@@ -12,7 +13,6 @@ class FilmFileRepository(FilmRepository):
         with open(self.filename) as f:
             for linie in f:
                 lista_filme= linie.split(",")
-                from problema2.domain.film import Film
                 film=Film(int(lista_filme[0]), lista_filme[1], lista_filme[2], lista_filme[3])
                 super().save(film)
 
@@ -22,7 +22,7 @@ class FilmFileRepository(FilmRepository):
 
     def __add_to_file(self,film):
         with open(self.filename, "a") as f:
-            string_film= "\n"+str(film.get_id())+","+film.get_titlu()+","+film.get_descriere()+","+film.get_gen()
+            string_film= "\n"+str(film.id)+","+film.titlu+","+film.descriere+","+film.gen
             f.write(string_film)
 
 #todo: stergere,modificare,delete

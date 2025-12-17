@@ -1,6 +1,5 @@
-from problema2.domain.client import Client
-from problema2.repository.client_repository import ClientRepository, DuplicateIdError
-from problema2.repository.film_repository import IdNotFoundError
+from domain.entities import Client
+from problema2.repository.film_repository import IdNotFoundError, DuplicateIdError
 
 
 class IsNotCnpError(Exception):

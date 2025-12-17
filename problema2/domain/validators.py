@@ -19,3 +19,4 @@ class ClientValidator:
             raise IdIncorectError("Id-ul este negativ")
 class FilmValidator:
     def validatefilm(self, film):
+        pass
