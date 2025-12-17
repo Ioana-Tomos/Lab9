@@ -1,7 +1,5 @@
-class IdNotFoundCError(Exception):
-    pass
-class DuplicateIdError(Exception):
-    pass
+
+
 
 class ClientRepository:
     def __init__(self):

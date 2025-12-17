@@ -27,6 +27,7 @@ class ClientFileRepository(ClientRepository):
 
     def __update_to_file(self, client):
         with open(self.filename, "a") as f:
-            string_client = "\n" + str(client.get_id()) + "," + client.get_nume() + "," + str(client.get_CNP())
-            f.write(string_client)
-#todo: stergere, modificare
+            for line in f:
+                pass
+
+#todo: stergere,modificare
