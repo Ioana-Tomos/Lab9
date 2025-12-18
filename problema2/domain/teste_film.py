@@ -8,16 +8,16 @@ class ClientTestCase(unittest.TestCase):
 
     def test_get_id(self):
         self.film = Film(1, "Titanic", "dsufbfer regregre", "drama")
-        assert (self.film.get_id() == 1)
-        self.film.set_id(2)
-        assert (self.film.get_id() == 2)
+        assert (self.film.id == 1)
+        self.film.id=2
+        assert (self.film.id == 2)
 
 
     def test_get_set_titlu(self):
         self.film = Film(1, "Titanic", "dsufbfer regregre", "drama")
-        assert (self.film.get_titlu() == "Titanic")
-        self.film.set_titlu("Razboiul stelelor")
-        assert (self.film.get_titlu() == "Razboiul stelelor")
+        assert (self.film.titlu== "Titanic")
+        self.film.titlu="Razboiul stelelor"
+        assert (self.film.titlu == "Razboiul stelelor")
 
 
     def test_get_set_descriere(self):

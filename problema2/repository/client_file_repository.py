@@ -4,9 +4,8 @@ from repository.client_repository import ClientRepository
 
 
 class ClientFileRepository(ClientRepository):
-
-    def __init__(self, filename):
-        super().__init__()
+    def __init__(self, validator, filename ):
+        super().__init__(validator)
         self.__filename = filename
         self.__load_data()
 
@@ -23,46 +22,42 @@ class ClientFileRepository(ClientRepository):
 
     def update(self, client):
         super().update(client)
-        self.__update_to_file(client)
-
-    def delete_by_id(self, id):
         try:
-            super().delete_by_id(id)
+            self.__update_to_file()
+        except IdNotFoundError :
+            print("Acest id nu este scris in lista")
+
+
+    def delete_by_id(self, client):
+        try:
+            super().delete_by_id(client.id)
         except IdNotFoundError as m:
             print(m)
-
-        c = super().find_by_id(id)
-        print(c)
-        self.__remove_from_file(c)
+        self.__rewrite()
 
     def __add_to_file(self, client):
         with open(self.__filename, "a") as f:
             string_client = "\n" + str(client.id) + "," + client.nume + "," + str(client.CNP)
             f.write(string_client)
 
-    def __remove_from_file(self, client):
-        with open(self.__filename, "r+") as f:
-            string_client = "\n" + str(client.id) + "," + str(client.nume) + "," + str(client.CNP)
-            text = f.readlines()
-            f.seek(0)
-            for line in text:
-                if line != string_client:
-                    f.write(line)
 
-            # for line in f:
-            #     copy_line=line.split(",")
-            #     string_client="\n"+str(client.id)+","+str(client.nume)+","+str(client.CNP)
-            #     if copy_line[0]==string_client[0]:
-            #         line.replace(string_client)
+    def __rewrite(self):
+        lista_clienti=self.find_all()
+        with open(self.__filename, "w") as f:
+            for client in lista_clienti:
+                client_file=str(client.id)+","+str(client.nume)+","+str(client.CNP)+"\n"
+                f.write(client_file)
 
-    def __update_to_file(self, client):
-        with open(self.__filename, "a") as f:
-            for line in f:
-                lista_client = line.split(",")
-                if client.id == lista_client[0]:
-                    pass
 
-    def find_by_id(self, id):
-        super().find_by_id(id)
+    def __update_to_file(self):
+        lista_clienti = self.find_all()
+        with open(self.__filename, "w") as f:
+            for client in lista_clienti:
+                client_file = str(client.id) + "," + str(client.nume) + "," + str(client.CNP) + "\n"
+                f.write(client_file)
 
-# todo: stergere,modificare
+    def find_by_id_f(self, id):
+       return  super().find_by_id(id)
+
+
+

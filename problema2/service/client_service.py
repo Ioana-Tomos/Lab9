@@ -20,11 +20,9 @@ class ClientService:
             print("Duplicate id")
 
     def remove_client(self, id):
-        c=self.find_by_id(id)
-        if self.find_by_id(id) is None:
-            raise IdNotFoundError("id nu exista")
-        else:
-            self.__client_repository.delete_by_id(c)
+        id=int(id)
+        c=self.find_by_id_s(id)
+        self.__client_repository.delete_by_id_f(c)
 
     def get_all_client(self):
         return self.__client_repository.find_all()
@@ -36,8 +34,8 @@ class ClientService:
         except IdNotFoundError:
             print("Nu exista acest id")
 
-    def find_by_id(self, id):
-        return self.__client_repository.find_by_id(id)
+    def find_by_id_s(self, id):
+        return self.__client_repository.find_by_id_f(id)
 
 
 

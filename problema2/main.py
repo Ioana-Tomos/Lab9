@@ -1,5 +1,6 @@
 import os
 
+from domain.validators import FilmValidator, ClientValidator
 from repository.client_file_repository import ClientFileRepository
 from repository.film_file_repository import FilmFileRepository
 from service.client_service import ClientService
@@ -13,8 +14,10 @@ from ui.consola import Consola
 def main():
 
     print(os.getcwd())
-    client_repository = ClientFileRepository('data/clienti')
-    film_repository = FilmFileRepository('data/filme')
+    client_validator=ClientValidator()
+    film_validator=FilmValidator()
+    client_repository = ClientFileRepository(client_validator,'../data/clienti')
+    film_repository = FilmFileRepository(film_validator,'../data/filme')
     client_service = ClientService(client_repository)
     film_service = FilmService(film_repository)
     sc = Consola(client_service, film_service)

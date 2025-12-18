@@ -1,21 +1,22 @@
-class DuplicateIdError(Exception):
-    pass
-class IdNotFoundError(Exception):
-    pass
+from domain.validators import DuplicateIdError, IdNotFoundError
+
 
 class FilmRepository():
-    def __init__(self):
+    def __init__(self, validator):
         self.__all_films={}
+        self.__validator=validator
 
     def find_all(self):
         return list(self.__all_films.values())
 
     def save(self, film):
-        if self.find_by_id(film.id) is not None:
+        self.__validator.validate(film)
+        if self.find_by_id(int(film.id)) is not None:
             raise DuplicateIdError("Id-ul este dulicat")
         self.__all_films[film.id]=film
 
     def update(self,film):
+        self.__validator.validate(film)
         if self.find_by_id(film.id) is None:
             raise IdNotFoundError("Id-ul nu exista")
         self.__all_films[film.id]=film

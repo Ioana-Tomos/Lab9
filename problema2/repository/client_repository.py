@@ -10,19 +10,20 @@ class ClientRepository:
         return list(self.__all_clients.values())
 
     def save(self, client):
-        self.validator
+        self.__validator.validate(client)
         if self.find_by_id(client.id) is not None:
             raise DuplicateIdError("duplicat")
         self.__all_clients[client.id] = client
 
     def update(self, client):
+        self.__validator.validate(client)
         if self.find_by_id(client.id) is None:
             raise IdNotFoundError("Acest id nu exista in lista")
         else:
             self.__all_clients[client.id] = client
 
     def delete_by_id(self, idu):
-        if self.find_by_id(idu) is not None:
+        if self.find_by_id(idu) is None:
             raise IdNotFoundError("Id-ul nu este")
         else:
             self.__all_clients.pop(idu)

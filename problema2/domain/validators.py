@@ -20,10 +20,10 @@ class EntityValidator:
 
 class ClientValidator(EntityValidator):
     def validate(self, person):
-        if len(str(person.get_cnp))!=13:
+        if len(str(person.CNP))!=13:
             raise IsNotCnpError("Forma cnp-ului nu este corecta")
 
-        if person.get_id<0:
+        if person.id<0:
             raise IdIncorectError("Id-ul este negativ")
 class FilmValidator(EntityValidator):
     def validate(self, film):
