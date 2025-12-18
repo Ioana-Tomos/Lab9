@@ -1,5 +1,6 @@
 from domain.entities import Client
-from problema2.repository.film_repository import IdNotFoundError, DuplicateIdError
+from domain.validators import IdNotFoundError, DuplicateIdError
+from repository.client_repository import ClientRepository
 
 
 class IsNotCnpError(Exception):
@@ -19,7 +20,11 @@ class ClientService:
             print("Duplicate id")
 
     def remove_client(self, id):
-        self.__client_repository.delete_by_id(id)
+        c=self.find_by_id(id)
+        if self.find_by_id(id) is None:
+            raise IdNotFoundError("id nu exista")
+        else:
+            self.__client_repository.delete_by_id(c)
 
     def get_all_client(self):
         return self.__client_repository.find_all()

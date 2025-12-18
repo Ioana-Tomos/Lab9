@@ -55,7 +55,7 @@ class Consola:
         return com, args
 
     def __help_comenzi_client(self, comanda):
-        comenzi = {"adaugare": "adaugare <id>, <nume>, <cnp>", "afisare": "afisare", "sterge": "sterge <id>", "update":"update"}
+        comenzi = {"adaugare": "adaugare <id>, <nume>, <cnp>", "afisare": "afisare", "sterge": "sterge", "update":"update"}
         print("Utilizare: ", comenzi[comanda])
 
     def __afisare_client(self):
@@ -78,8 +78,8 @@ class Consola:
         id = int(input("introdu id-ul: "))
         try:
             self.__client_service.remove_client(id)
-        except IdNotExistError:
-            print("nu exista acest id")
+        except IdNotExistError as m:
+            print(m)
 
     def __update_client(self):
         self.__afisare_client()
@@ -88,8 +88,7 @@ class Consola:
         CNP=int(input("introdu CNP: "))
         try:
             self.__client_service.modify_client(id, nume, CNP)
-        # except IdIsNotIntError:
-        #     print("Id nu este de tipul potrivit")
+
         except IdNotFoundError:
             print("nu exista acest id")
         except IsNotCnpError:
