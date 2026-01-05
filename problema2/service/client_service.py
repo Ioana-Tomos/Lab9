@@ -12,6 +12,8 @@ class ClientService:
         if len(str(CNP)) != 13:
             raise IsNotCnpError("Nu are forma de cnp")
         client=Client(id, nume, CNP)
+        # self.__client_repository.save(client)
+
         try:
             self.__client_repository.save(client)
         except DuplicateIdError:
@@ -19,11 +21,12 @@ class ClientService:
 
     def remove_client(self, id):
         id=int(id)
-        c=self.find_by_id_s(id)
-        try:
-            self.__client_repository.delete_by_id(c)
-        except IdNotFoundError as m:
-            print(m)
+        self.__client_repository.delete_by_id(id)
+        #
+        # try:
+        #     self.__client_repository.delete_by_id(id)
+        # except IdNotFoundError as m:
+        #     print(m)
 
     def get_all_client(self):
         return self.__client_repository.find_all()

@@ -18,7 +18,10 @@ class FilmFileRepository(FilmRepository):
                     film = Film(int(lista_film[0]), lista_film[1], lista_film[2], lista_film[3].strip())
                     super().save(film)
                 except ValueError:
-                    print("Gresala in fisier")
+                    print("\n"+"!!!!!!!!!!!!!!Gresala in fisierul filme!!!!!!!!!!!!!!!!!!"+"\n")
+                except DuplicateIdError:
+                    print("\n"+"!!!!!!!!!!!!!!Id duplicat in fisierul filme!!!!!!!!!!!!!!!!!!"+"\n")
+
 
     def save(self, film):
         super().save(film)

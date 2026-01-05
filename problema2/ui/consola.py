@@ -1,4 +1,4 @@
-from domain.validators import IsNotCnpError, IdNotFoundError
+from domain.validators import IsNotCnpError, IdNotFoundError, DuplicateIdError
 
 
 class IdNotExistError(Exception):
@@ -37,7 +37,9 @@ class Consola:
             try:
                 comenzi[cmd](*args)
             except KeyError:
-                print("Comanda nu a fost introdusa corect ")
+                print("Comanda nu a fost introdusa corect.  Pentru a afla forma corecta intrdouceti:help <numele comenzii>  ")
+            except TypeError:
+                print("Comanda nu a fost introdusa corect.  Pentru a afla forma corecta intrdouceti:help <numele comenzii>  ")
 
     def __citeste_comanda_c(self):
         linie = input()
@@ -60,35 +62,42 @@ class Consola:
             print(client)
 
     def __adaugare_client(self, id, nume, CNP):
-        id=int(id)
-        CNP=int(CNP)
+
         try:
+            id=int(id)
+            CNP=int(CNP)
             self.__client_service.add_client(id, nume, CNP)
         except IsNotCnpError:
             print("Nu are format de CNP")
-        # except DuplicateIdError:
-        #     print("Duplicate: id-ul clientului este duplicat")
+        except DuplicateIdError:
+            print("Duplicate: id-ul clientului este duplicat")
+        except ValueError:
+            print("Id-ul si CNP-ul trebuie sa fie numere")
 
     def __sterge_client(self):
         self.__afisare_client()
-        id = int(input("introdu id-ul: "))
         try:
+            id = int(input("introdu id-ul: "))
             self.__client_service.remove_client(id)
         except IdNotExistError as m:
             print(m)
+        except ValueError:
+            print("Id-ul trebuie sa fie numar")
 
     def __update_client(self):
         self.__afisare_client()
-        id=int(input("introdu id-ul: "))
-        nume=input("introdu nume: ")
-        CNP=int(input("introdu CNP: "))
         try:
+            id=int(input("introdu id-ul: "))
+            nume=input("introdu nume: ")
+            CNP=int(input("introdu CNP: "))
             self.__client_service.modify_client(id, nume, CNP)
 
         except IdNotFoundError:
             print("nu exista acest id")
         except IsNotCnpError:
             print("Nu are format de CNP")
+        except ValueError:
+            print("Id-ul si CNP-ul trebuie sa fie numere")
 
     def executa_comenzi_film(self):
         comenzi = {"adaugare": self.__adaugare_film, "afisare": self.__afisare_film, "sterge": self.__sterge_film,
@@ -102,7 +111,9 @@ class Consola:
             try:
                 comenzi[cmd](*args)
             except KeyError:
-                print("Comanda nu a fost introdusa corect ")
+                print("Comanda nu a fost introdusa corect. Pentru a afla forma corecta intrdouceti:help <numele comenzii> ")
+            except TypeError:
+                print("Comanda nu a fost introdusa corect. Pentru a afla forma corecta intrdouceti:help <numele comenzii> ")
 
 
     def __citeste_comanda_f(self):
@@ -127,11 +138,13 @@ class Consola:
             print(movie)
 
     def __adaugare_film(self, id, titlu, descriere, gen):
-        id=int(id)
         try:
+            id=int(id)
             self.__film_service.add_film(id, titlu, descriere, gen)
         except TypeError:
             print("Nu este de tip int")
+        except ValueError:
+            print("Id-ul trebuie sa fie de tip int")
 
     def __sterge_film(self):
         self.__afisare_film()

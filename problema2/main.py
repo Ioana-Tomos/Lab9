@@ -20,7 +20,6 @@ def main():
     sc = Consola(client_service, film_service)
     sc.execute_menu()
 
-
 main()
 
 # def main():

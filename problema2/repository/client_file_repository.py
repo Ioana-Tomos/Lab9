@@ -1,5 +1,5 @@
 from domain.entities import Client
-from domain.validators import IdNotFoundError
+from domain.validators import IdNotFoundError, DuplicateIdError
 from repository.client_repository import ClientRepository
 
 
@@ -13,8 +13,13 @@ class ClientFileRepository(ClientRepository):
         with open(self.__filename) as f:
             for line in f:
                 lista_client = line.split(",")
-                client = Client(int(lista_client[0]), lista_client[1], int(lista_client[2]))
-                super().save(client)
+                try:
+                    client = Client(int(lista_client[0]), lista_client[1], int(lista_client[2]))
+                    super().save(client)
+                except ValueError:
+                    print("\n"+"!!!!!!!!!!!!!!Gresala in fisierul clienti!!!!!!!!!!!!!!!!!!"+"\n")
+                except DuplicateIdError:
+                    print("\n"+"!!!!!!!!!!!!!!Id duplicat in fisierul clienti!!!!!!!!!!!!!!!!!!"+"\n")
 
     def save(self, client):
         super().save(client)
@@ -28,9 +33,9 @@ class ClientFileRepository(ClientRepository):
             print("Acest id nu este scris in lista")
 
 
-    def delete_by_id(self, client):
+    def delete_by_id(self, idc):
         try:
-            super().delete_by_id(client.id)
+            super().delete_by_id(idc)
         except IdNotFoundError as m:
             print(m)
         self.__rewrite()
