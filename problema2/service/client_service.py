@@ -1,10 +1,8 @@
 from domain.entities import Client
-from domain.validators import IdNotFoundError, DuplicateIdError
+from domain.validators import IdNotFoundError, DuplicateIdError, IsNotCnpError
 from repository.client_repository import ClientRepository
 
 
-class IsNotCnpError(Exception):
-    pass
 
 class ClientService:
     def __init__(self, client_repository):
@@ -22,7 +20,10 @@ class ClientService:
     def remove_client(self, id):
         id=int(id)
         c=self.find_by_id_s(id)
-        self.__client_repository.delete_by_id_f(c)
+        try:
+            self.__client_repository.delete_by_id(c)
+        except IdNotFoundError as m:
+            print(m)
 
     def get_all_client(self):
         return self.__client_repository.find_all()

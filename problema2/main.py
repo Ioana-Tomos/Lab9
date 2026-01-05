@@ -8,9 +8,6 @@ from service.film_service import FilmService
 from ui.consola import Consola
 
 
-# print("Hello lume")
-
-
 def main():
 
     print(os.getcwd())

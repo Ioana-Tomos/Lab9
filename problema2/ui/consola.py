@@ -1,14 +1,10 @@
-from problema2.repository.film_repository import IdNotFoundError, DuplicateIdError
-from problema2.service.client_service import IsNotCnpError, ClientService
-from problema2.service.film_service import FilmService
+from domain.validators import IsNotCnpError, IdNotFoundError
 
 
 class IdNotExistError(Exception):
     pass
 
 
-class IdIsNotIntError:
-    pass
 
 
 class Consola:

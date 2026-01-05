@@ -1,10 +1,5 @@
 from domain.entities import Film
-
-
-class DuplicateIdError(Exception):
-    pass
-class IdNotFoundError(Exception):
-    pass
+from domain.validators import DuplicateIdError, IdNotFoundError
 
 
 class FilmService:

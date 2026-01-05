@@ -37,7 +37,7 @@ class ClientFileRepository(ClientRepository):
 
     def __add_to_file(self, client):
         with open(self.__filename, "a") as f:
-            string_client = "\n" + str(client.id) + "," + client.nume + "," + str(client.CNP)
+            string_client = str(client.id) + "," + client.nume + "," + str(client.CNP)
             f.write(string_client)
 
 

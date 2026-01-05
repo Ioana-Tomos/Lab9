@@ -22,16 +22,16 @@ class ClientTestCase(unittest.TestCase):
 
     def test_get_set_descriere(self):
         self.film = Film(1, "Titanic", "dsufbfer regregre", "drama")
-        assert (self.film.get_descriere() == "dsufbfer regregre")
-        self.film.set_descriere("ABCDEFG")
-        assert (self.film.get_descriere() == "ABCDEFG")
+        assert (self.film.descriere == "dsufbfer regregre")
+        self.film.set_descriere="ABCDEFG"
+        assert (self.film.descriere() == "ABCDEFG")
 
 
     def test_get_set_gen(self):
         self.film = Film(1, "Titanic", "dsufbfer regregre", "drama")
-        assert (self.film.get_gen() == "drama")
-        self.film.set_gen("wefdfdfd")
-        assert (self.film.get_gen() == "wefdfdfd")
+        assert (self.film.gen == "drama")
+        self.film.gen="wefdfdfd"
+        assert (self.film.gen == "wefdfdfd")
 
 
     # def all_teste_filme():
