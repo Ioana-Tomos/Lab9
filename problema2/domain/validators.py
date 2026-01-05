@@ -13,18 +13,20 @@ class IsNotCnpError(Exception):
 class IdIncorectError(Exception):
     pass
 
+
 class EntityValidator:
     @abstractmethod
     def validate(self, entity):
-        pass
+        if entity.id<0:
+            raise IdIncorectError("Id-ul este negativ")
 
 class ClientValidator(EntityValidator):
     def validate(self, person):
+        super().validate(person)
         if len(str(person.CNP))!=13:
             raise IsNotCnpError("Forma cnp-ului nu este corecta")
 
-        if person.id<0:
-            raise IdIncorectError("Id-ul este negativ")
 class FilmValidator(EntityValidator):
     def validate(self, film):
-        pass
+        super().validate(film)
+
